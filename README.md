@@ -26,3 +26,5 @@ Icons credited to http://fasticon.com/ and explicitly available at http://www.ic
 -Test to ensure a new test isn't started on a currently running probe
 -New window creation to see progress of currently running tests such as time and temp
 -Ability to end a test early through the program instead of dipping the probe in cold water
+
+Written in Python 3.6.5
