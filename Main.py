@@ -14,7 +14,7 @@ def exampleOpener():
 
 def readmeOpener():
 	#Opens the Readme for User Instruction and Information
-	file = "C://Users/USER/Desktop/ThermoReader-master/readme.txt"
+	file = "C://Users/USER/Desktop/ThermoReader-master/readme.md"
 	os.startfile(file)
 	return
 	
