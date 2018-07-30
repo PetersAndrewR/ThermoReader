@@ -13,6 +13,12 @@ def exampleOpener():
 	os.startfile(file)
 	return
 
+def readmeOpener():
+	#Opens the Readme for User Instruction and Information
+	file = "C://Users/USER/Desktop/ProgTest/readme.txt"
+	os.startfile(file)
+	return
+	
 def statusDecoder(status):
 	#Determines what image to use when updating main window	
 	global image0, image1, image2, image3
@@ -72,10 +78,13 @@ if __name__ == '__main__':    #Prevents new process' from opening a new main win
 	root.columnconfigure(0, minsize=150)
 
 	btn1 = tkinter.Button(root, text="Start Test", command=lambda: TempReader.StartTestClick(pipeArrayC))  #The lambda expression allows me to pass variables to the function when the button is clicked.
-	btn2 = tkinter.Button(root, text="Example Output, command=exampleOpener")
-	btn2.grid(column=0, row=3)
-	btn1.grid(column=0, row=1)
+	btn2 = tkinter.Button(root, text="Example Output", command=exampleOpener)
+	btn3 = tkinter.Button(root, text="Open ReadMe", command=readmeOpener) 
 
+	btn1.grid(column=0, row=1)
+	btn2.grid(column=0, row=3)
+	btn3.grid(column=0, row=2)
+	
 	Space1 = tkinter.Frame(root)
 	Space3 = tkinter.Frame(root)
 	Space5 = tkinter.Frame(root)
