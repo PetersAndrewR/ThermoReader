@@ -80,6 +80,7 @@ if __name__ == '__main__':    #Prevents new process' from opening a new main win
 	btn1 = tkinter.Button(root, text="Start Test", command=lambda: TempReader.StartTestClick(pipeArrayC))  #The lambda expression allows me to pass variables to the function when the button is clicked.
 	btn2 = tkinter.Button(root, text="Example Output", command=exampleOpener)
 	btn3 = tkinter.Button(root, text="Open ReadMe", command=readmeOpener) 
+
 	btn1.grid(column=0, row=1)
 	btn2.grid(column=0, row=3)
 	btn3.grid(column=0, row=2)
