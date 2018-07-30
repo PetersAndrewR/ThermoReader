@@ -4,18 +4,17 @@
 import TempReader
 import multiprocessing
 import tkinter
-from tkinter import messagebox
 import os
 
 def exampleOpener():
 	#Opens the Example output xlsx for the user to see
-	file = "C://Users/USER/Desktop/ProgTest/Example_Output.xlsx"
+	file = "C://Users/USER/Desktop/ThermoReader-master/Example_Output.xlsx"
 	os.startfile(file)
 	return
 
 def readmeOpener():
 	#Opens the Readme for User Instruction and Information
-	file = "C://Users/USER/Desktop/ProgTest/readme.txt"
+	file = "C://Users/USER/Desktop/ThermoReader-master/readme.txt"
 	os.startfile(file)
 	return
 	
@@ -92,10 +91,10 @@ if __name__ == '__main__':    #Prevents new process' from opening a new main win
 	Space3.grid(column=0, row=2)
 	Space5.grid(column=0, row=4)
 
-	image0 = tkinter.PhotoImage(file="C://Users/USER/Documents/ready.png")
-	image1 = tkinter.PhotoImage(file="C://Users/USER/Documents/test_run.png")
-	image2 = tkinter.PhotoImage(file="C://Users/USER/Documents/temp_met.png")
-	image3 = tkinter.PhotoImage(file="C://Users/USER/Documents/probe_er.png")
+	image0 = tkinter.PhotoImage(file="C://Users/USER/Desktop/ThermoReader-master/ready.png")
+	image1 = tkinter.PhotoImage(file="C://Users/USER/Desktop/ThermoReader-master/test_run.png")
+	image2 = tkinter.PhotoImage(file="C://Users/USER/Desktop/ThermoReader-master/temp_met.png")
+	image3 = tkinter.PhotoImage(file="C://Users/USER/Desktop/ThermoReader-master/probe_er.png")
 
 	label0 = tkinter.Label(image=image0)
 	label1 = tkinter.Label(image=image0)
@@ -110,15 +109,7 @@ if __name__ == '__main__':    #Prevents new process' from opening a new main win
 	label3.grid(column=1, row=3)
 	label4.grid(column=1, row=4)
 	label5.grid(column=1, row=5)
-	'''
-	messagebox.showinfo("Quick Guide",
-                    "TempReader will record the temperature for a specified probe every second as well as determining the WT, CT, and EXO.  "
-                    "Temp Reader will then save the resulting information to an appropriately named excel file.\n\nAn example is packaged with this program.  "
-                    "To view press the Example button on the main window.\n\nThings to Consider:\n\nIf you close the main menu, TempReader will cease "
-                    "all recording.  Leave the Main Window open until all tests are complete.\n\nThe program decides when the test is over and to stop "
-                    "recording when the temperature drops 10 degrees.  If you cancel a test early and a drop of 10 degrees or more does not occur TempReader"
-                    "will continue to record.  Simple remedy is to dip the probe in cold water.")
-	'''
+
 	refresh()
 	
 	root.mainloop()
