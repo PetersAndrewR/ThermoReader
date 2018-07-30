@@ -5,21 +5,28 @@ import TempReader
 import multiprocessing
 import tkinter
 from tkinter import messagebox
+import os
+
+def exampleOpener():
+	#Opens the Example output xlsx for the user to see
+	file = "C://Users/USER/Desktop/ProgTest/Example_Output.xlsx"
+	os.startfile(file)
+	return
 
 def statusDecoder(status):
 	#Determines what image to use when updating main window	
-		global image0, image1, image2, image3
-		if status == 'ready':
-			return image0
-		elif status == 'testing':
-			return image1
-		elif status == 'hot':
-			return image2
-		elif status == 'error':
-			return image3
-		else:
-			print("Problem with images")
-			return
+	global image0, image1, image2, image3
+	if status == 'ready':
+		return image0
+	elif status == 'testing':
+		return image1
+	elif status == 'hot':
+		return image2
+	elif status == 'error':
+		return image3
+	else:
+		print("Problem with images")
+		return
 		
 def refresh():
 	#Updates the images on the main Window that show Probe Status
