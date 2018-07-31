@@ -43,6 +43,7 @@ def StartTestClick(pipeArray):
     rad5.grid(column=5, row=3)
     rad6.grid(column=6, row=3)
 
+    rad1.select()
     txt1.focus()
 	
     Space1 = tkinter.Frame(newTest)
