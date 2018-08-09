@@ -6,7 +6,7 @@ import tkinter
 import multiprocessing
 
 #Create New Test Window
-def StartTestClick(pipeArray):
+def StartTestClick(pipeArray, eventArray):
     NewTestInfo = [' ', ' ', ' ', ' ']  # [ProdName, Lot#, Test#/Letter, Probe#]
     ok = tkinter.IntVar()
     radBut = tkinter.IntVar()
@@ -74,14 +74,14 @@ def StartTestClick(pipeArray):
     NewTestInfo[3] = radBut.get()
 
     if(ok.get() == 1):
-        p = multiprocessing.Process(target=TestStart, args=(NewTestInfo, pipeArray[NewTestInfo[3]-1]))    # -1 since NewTestInfo is an array that starts at [0] and probe numbers start at 1
+        p = multiprocessing.Process(target=TestStart, args=(NewTestInfo, pipeArray[NewTestInfo[3]-1], eventArray[NewTestInfo[3]-1]))    # -1 since NewTestInfo is an array that starts at [0] and probe numbers start at 1
         p.start()
     if(ok.get() == 0):
         print("User Canceled")
 
     newTest.destroy()
 
-def TestStart(NewTestInfo, child_conn):
+def TestStart(NewTestInfo, child_conn, event):
     # Starting point for recording test data
     fileName = fileNamer(NewTestInfo[0], NewTestInfo[1], NewTestInfo[2])
     # initializes the excel workbook and sheet
@@ -103,7 +103,7 @@ def TestStart(NewTestInfo, child_conn):
     finalTimes = [0.0, 0.0, 0]
     child_conn.send('testing')
     #child_conn.close()
-    finalTimes = timeKeeper(NewTestInfo[3], worksheet, child_conn)
+    finalTimes = timeKeeper(NewTestInfo[3], worksheet, child_conn, event)
 
     for i in (0, 1):
         finalTimes[i] = timeStandardizer(finalTimes[i])
@@ -124,7 +124,7 @@ def fileNamer(prodName, prodLot, testNum):
     fileName = 'C://USERS/USER/Desktop/ProgTest/' + prodName + '_' + prodLot + '_' + testNum + '.xlsx'
     return fileName
 
-def timeKeeper(pNumber, worksheet, child_conn):
+def timeKeeper(pNumber, worksheet, child_conn, event):
     # Counts Time for infoGrabber and Final Test Times
     flag = '1'
     count = 1
@@ -149,6 +149,9 @@ def timeKeeper(pNumber, worksheet, child_conn):
             #child_conn.close()
             print("105F TIMES MET/RECORDED!")  # Only used during testing
         if ((tempMax - 10) > curTemp and curTemp < tempMax):  # breaks the while loop to end the function
+            flag = '0'
+        if (event.is_set()):
+            event.clear()
             flag = '0'
     return (finalTimes)
 
