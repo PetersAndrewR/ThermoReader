@@ -133,7 +133,7 @@ def timeKeeper(pNumber, worksheet, child_conn):
     startTime = time.time()
 
     while (flag == '1'):
-        time.sleep(.9)  # stops the function for 0.9 seconds to ensure were not requesting temp more often then 1/sec
+        time.sleep(.75)  # stops the function for 0.75 seconds to cut back how often we are requesting updates from the Yokogawa
         curTemp = infoGrabber(pNumber)
         count = eXcelWriter(time.time() - startTime, curTemp, count, worksheet)  # writes current sec count since start and current temp, function returns count + 1 to ensure next excel cell is used
         if (curTemp > tempMax + 100):
