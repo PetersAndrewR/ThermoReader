@@ -5,6 +5,33 @@ import xlsxwriter
 import tkinter
 import multiprocessing
 
+def TestReadyWin():
+    ready = tkinter.Tk()
+    ready.geometry("200x125")
+    ready.title("Start Test")
+
+    ok = tkinter.IntVar()
+
+    def okClick():
+        ok.set(1)
+    def cancelClick():
+        ok.set(0)
+	
+    but1 = tkinter.Button(ready, text='Start', command=okClick)
+    but2 = tkinter.Button(ready, text='Cancel', command=cancelClick)
+    
+    but1.grid(column=0, row=0, padx=30, pady=30)
+    but2.grid(column=1, row=0)
+	
+    but1.wait_variable(ok)
+
+    ready.destroy()
+	
+    if(ok.get() == 1):
+        return 1
+    if(ok.get() == 0):
+        return 0
+
 #Create New Test Window
 def StartTestClick(pipeArray, eventArray):
     NewTestInfo = [' ', ' ', ' ', ' ']  # [ProdName, Lot#, Test#/Letter, Probe#]
@@ -62,7 +89,7 @@ def StartTestClick(pipeArray, eventArray):
     newTest.focus()
     txt1.focus()
 
- #print(ok.get())
+    #print(ok.get())
 
     but1.wait_variable(ok)
 
@@ -103,14 +130,18 @@ def TestStart(NewTestInfo, child_conn, event):
     finalTimes = [0.0, 0.0, 0]
     child_conn.send('testing')
     #child_conn.close()
-    finalTimes = timeKeeper(NewTestInfo[3], worksheet, child_conn, event)
+	
+    flag = TestReadyWin()
+	
+    if (flag == 1):
+        finalTimes = timeKeeper(NewTestInfo[3], worksheet, child_conn, event)
 
-    for i in (0, 1):
-        finalTimes[i] = timeStandardizer(finalTimes[i])
-    # writes final times/temp on excel sheet
-    worksheet.write('E4', finalTimes[0], bold)
-    worksheet.write('E5', finalTimes[1], bold)
-    worksheet.write('E6', finalTimes[2], bold)
+        for i in (0, 1):
+            finalTimes[i] = timeStandardizer(finalTimes[i])
+        # writes final times/temp on excel sheet
+        worksheet.write('E4', finalTimes[0], bold)
+        worksheet.write('E5', finalTimes[1], bold)
+        worksheet.write('E6', finalTimes[2], bold)
 
     workbook.close()
 
@@ -133,7 +164,7 @@ def timeKeeper(pNumber, worksheet, child_conn, event):
     startTime = time.time()
 
     while (flag == '1'):
-        time.sleep(.9)  # stops the function for 0.9 seconds to ensure were not requesting temp more often then 1/sec
+        time.sleep(.75)  # stops the function for 0.9 seconds to ensure were not requesting temp more often then 1/sec
         curTemp = infoGrabber(pNumber)
         count = eXcelWriter(time.time() - startTime, curTemp, count, worksheet)  # writes current sec count since start and current temp, function returns count + 1 to ensure next excel cell is used
         if (curTemp > tempMax + 100):
