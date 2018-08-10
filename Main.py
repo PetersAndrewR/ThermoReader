@@ -5,19 +5,11 @@ import TempReader
 import multiprocessing
 import tkinter
 import os
-
-'''
-Finish designing testKillerWin
-	when you hit a probe button an are you sure pops up with yes or no.
-	if you hit yes, it goes to testKiller, otherwise it closes and you go back to the select window
-	a check so that you can't kill processes not running
-'''
-def test():
-	return
+import time
 
 def testKillerWin():
 	killer = tkinter.Toplevel()
-	killer.geometry('350x125')
+	killer.geometry('275x125')
 	killer.title("Stop Test")
 	
 	btn1 = tkinter.Button(killer, text="Probe 1", command=lambda: testKiller(event1))
@@ -26,34 +18,18 @@ def testKillerWin():
 	btn4 = tkinter.Button(killer, text="Probe 4", command=lambda: testKiller(event4))
 	btn5 = tkinter.Button(killer, text="Probe 5", command=lambda: testKiller(event5))
 	btn6 = tkinter.Button(killer, text="Probe 6", command=lambda: testKiller(event6))
-	
-	btn1.grid(column=1, row=1)
+		
+	btn1.grid(column=1, row=1, padx=30, pady=25)
 	btn2.grid(column=3, row=1)
-	btn3.grid(column=5, row=1)
+	btn3.grid(column=5, row=1, padx=30)
 	btn4.grid(column=1, row=3)
 	btn5.grid(column=3, row=3)
 	btn6.grid(column=5, row=3)
-	
-	Space0 = tkinter.Frame(killer)
-	Space1 = tkinter.Frame(killer)
-	Space2 = tkinter.Frame(killer)
-	Space3 = tkinter.Frame(killer)
-	Space4 = tkinter.Frame(killer)
-	Space5 = tkinter.Frame(killer)
-	
-	Space0.grid(column=0, row=0)
-	Space1.grid(column=1, row=0)
-	Space2.grid(column=2, row=0)
-	Space3.grid(column=3, row=0)
-	Space4.grid(column=4, row=0)
-	Space5.grid(column=5, row=0)
-	
-	
-	
-	
 
 def testKiller(event):
 	event.set()
+	time.sleep(3)
+	event.clear
 
 def exampleOpener():
 	#Opens the Example output xlsx for the user to see
@@ -123,6 +99,13 @@ if __name__ == '__main__':    #Prevents new process' from opening a new main win
 	event5 = multiprocessing.Event()
 	event6 = multiprocessing.Event()
 	
+	event1.clear()
+	event2.clear()
+	event3.clear()
+	event4.clear()
+	event5.clear()
+	event6.clear()
+
 	eventArray = [event1, event2, event3, event4, event5, event6]
 
 	pipeArrayC = [child_conn1, child_conn2, child_conn3, child_conn4, child_conn5, child_conn6]
@@ -143,14 +126,14 @@ if __name__ == '__main__':    #Prevents new process' from opening a new main win
 	btn2.grid(column=0, row=4)
 	btn3.grid(column=0, row=3)
 	btn4.grid(column=0, row=2)
-	
+	'''
 	Space1 = tkinter.Frame(root)
 	Space3 = tkinter.Frame(root)
 	Space5 = tkinter.Frame(root)
 	Space1.grid(column=0, row=0)
 	Space3.grid(column=0, row=2)
 	Space5.grid(column=0, row=4)
-
+	'''
 	image0 = tkinter.PhotoImage(file="C://Users/USER/Desktop/ThermoReader-master/ready.png")
 	image1 = tkinter.PhotoImage(file="C://Users/USER/Desktop/ThermoReader-master/test_run.png")
 	image2 = tkinter.PhotoImage(file="C://Users/USER/Desktop/ThermoReader-master/temp_met.png")
